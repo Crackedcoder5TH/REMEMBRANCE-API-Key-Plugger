@@ -8,6 +8,7 @@ const { writeNextAuthRoute, detectConfiguredProviders } = require('../generators
 const { getProvider, PROVIDER_NAMES } = require('../providers/registry');
 const { validateCustomProvider } = require('../providers/custom');
 const { getCredentials } = require('../prompt');
+const { queryOracle, registerWithOracle } = require('../oracle');
 
 /**
  * plugger add <provider> — add an OAuth provider with credentials.
@@ -83,6 +84,19 @@ async function addCommand(parsed, projectDir) {
     log.warn(`  Skipped (already set): ${skipped.join(', ')}`);
   }
 
+  // Query Oracle for proven auth patterns before generating
+  let usedOraclePattern = false;
+  const oracleResult = await queryOracle({
+    description: `nextauth ${provider.name} oauth provider configuration`,
+    tags: ['nextauth', 'oauth', providerKey, 'authentication'],
+    language: 'typescript',
+  });
+
+  if (oracleResult && oracleResult.decision === 'pull' && oracleResult.confidence >= 0.68) {
+    log.success(`Using Oracle-proven auth pattern (confidence: ${(oracleResult.confidence * 100).toFixed(0)}%)`);
+    usedOraclePattern = true;
+  }
+
   // Regenerate NextAuth route with all configured providers
   if (project.framework === 'nextjs') {
     const allProviders = detectConfiguredProviders(envPath);
@@ -91,6 +105,19 @@ async function addCommand(parsed, projectDir) {
     });
     const relPath = path.relative(projectDir, routePath);
     log.success(`Updated ${relPath} (providers: ${allProviders.join(', ')})`);
+
+    // Register generated code back to Oracle
+    const fs = require('fs');
+    try {
+      const generatedCode = fs.readFileSync(routePath, 'utf8');
+      registerWithOracle({
+        name: `nextauth-${providerKey}-provider`,
+        code: generatedCode,
+        language: 'typescript',
+        description: `NextAuth.js ${provider.name} OAuth provider configuration`,
+        tags: ['nextauth', 'oauth', providerKey, 'authentication', 'next.js'],
+      }).catch(() => {}); // fire-and-forget, don't block CLI
+    } catch { /* ignore registration failures */ }
   }
 
   console.log('');

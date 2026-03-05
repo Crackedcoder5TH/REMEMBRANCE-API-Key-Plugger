@@ -1,12 +1,14 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs');
 const { log, generateSecret } = require('../utils');
 const { detectProject, hasExistingAuthRoute } = require('../detect');
 const { mergeEnv, ensureGitignore } = require('../generators/env');
 const { writeNextAuthRoute, detectConfiguredProviders } = require('../generators/nextauth');
 const { PROVIDER_NAMES } = require('../providers/registry');
 const { confirm, select } = require('../prompt');
+const { registerWithOracle } = require('../oracle');
 
 /**
  * plugger init — detect project, set up .env and NextAuth route.
@@ -70,6 +72,18 @@ async function initCommand(parsed, projectDir) {
     const relPath = path.relative(projectDir, routePath);
     log.success(`Created ${relPath}`);
   }
+
+  // Register project detection pattern with Oracle (fire-and-forget)
+  try {
+    const detectCode = fs.readFileSync(require.resolve('../detect'), 'utf8');
+    registerWithOracle({
+      name: 'nextjs-project-detection',
+      code: detectCode,
+      language: 'javascript',
+      description: 'Detect Next.js project type, router type, and auth setup',
+      tags: ['nextjs', 'detection', 'project-detection', 'framework-detection'],
+    }).catch(() => {});
+  } catch { /* Oracle unavailable — no problem */ }
 
   console.log('');
   log.info('Next steps:');
