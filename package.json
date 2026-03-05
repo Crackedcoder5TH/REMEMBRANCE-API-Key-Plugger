@@ -1,0 +1,19 @@
+{
+  "name": "oauth-plugger",
+  "version": "1.0.0",
+  "description": "CLI that auto-configures OAuth providers — plugs in keys, generates auth files, creates .env configs",
+  "main": "bin/plugger.js",
+  "bin": {
+    "plugger": "./bin/plugger.js"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "start": "node bin/plugger.js"
+  },
+  "keywords": ["oauth", "cli", "nextauth", "google", "github", "facebook", "discord", "twitter", "authentication"],
+  "author": "Crackedcoder5TH",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

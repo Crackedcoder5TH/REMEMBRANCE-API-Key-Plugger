@@ -1,0 +1,101 @@
+# OAuth Plugger
+
+CLI that auto-configures OAuth providers for Next.js projects. Given your OAuth credentials, it plugs them into `.env` files, generates NextAuth.js route files, and creates any missing config — zero external dependencies.
+
+## Quick Start
+
+```bash
+# Initialize in your Next.js project
+npx oauth-plugger init
+
+# Add providers
+npx oauth-plugger add google
+npx oauth-plugger add github --client-id <id> --client-secret <secret>
+
+# Check status
+npx oauth-plugger status
+```
+
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `plugger init` | Detect project type, create `.env.local`, generate NextAuth route |
+| `plugger add <provider>` | Add an OAuth provider (interactive or via flags) |
+| `plugger list` | List configured OAuth providers |
+| `plugger status` | Show config completeness and file status |
+| `plugger remove <provider>` | Remove an OAuth provider |
+
+## Supported Providers
+
+| Provider | Command |
+|----------|---------|
+| Google | `plugger add google` |
+| GitHub | `plugger add github` |
+| Facebook | `plugger add facebook` |
+| Discord | `plugger add discord` |
+| Twitter/X | `plugger add twitter` |
+| Custom OIDC | `plugger add custom --name myoidc --issuer https://...` |
+
+## Usage
+
+### Interactive Mode (default)
+
+```bash
+plugger add google
+# Prompts for Client ID and Client Secret
+```
+
+### Non-Interactive (CI/scripting)
+
+```bash
+plugger add google --client-id YOUR_ID --client-secret YOUR_SECRET
+```
+
+### Custom OIDC Provider
+
+```bash
+plugger add custom \
+  --name okta \
+  --client-id YOUR_ID \
+  --client-secret YOUR_SECRET \
+  --issuer https://your-org.okta.com
+```
+
+### Target a Different Directory
+
+```bash
+plugger init --dir /path/to/project
+plugger add google --dir /path/to/project
+```
+
+## What It Does
+
+1. **`plugger init`** detects your Next.js project (App Router / Pages Router), creates `.env.local` with `NEXTAUTH_SECRET` and `NEXTAUTH_URL`, generates the `[...nextauth]/route.ts` file, and ensures `.gitignore` covers `.env` files.
+
+2. **`plugger add <provider>`** collects credentials (interactively or via flags), merges them into `.env.local` without overwriting existing values, and regenerates the NextAuth route file with all configured providers.
+
+3. **`plugger remove <provider>`** removes the provider's env vars and updates the route file.
+
+## Security
+
+- Secrets are masked in CLI output (`test****cret`)
+- `.env` and `.env.local` are auto-added to `.gitignore`
+- `NEXTAUTH_SECRET` is auto-generated with `crypto.randomBytes(32)`
+- Existing env values are never overwritten
+
+## Requirements
+
+- Node.js 18+
+- Next.js project (App Router or Pages Router)
+- Zero external dependencies
+
+## Testing
+
+```bash
+node --test tests/*.test.js
+```
+
+## License
+
+MIT
