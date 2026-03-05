@@ -32,9 +32,9 @@ const log = {
 
 function parseArgs(argv) {
   const args = argv.slice(2); // skip node + script
-  const parsed = { _command: args[0] || null, _positional: [], _flags: {} };
+  const parsed = { _command: null, _positional: [], _flags: {} };
 
-  for (let i = 1; i < args.length; i++) {
+  for (let i = 0; i < args.length; i++) {
     if (args[i].startsWith('--')) {
       const key = args[i].slice(2);
       const next = args[i + 1];
@@ -44,6 +44,8 @@ function parseArgs(argv) {
       } else {
         parsed._flags[key] = true;
       }
+    } else if (!parsed._command) {
+      parsed._command = args[i];
     } else {
       parsed._positional.push(args[i]);
     }
