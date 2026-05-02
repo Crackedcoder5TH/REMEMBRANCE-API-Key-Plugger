@@ -2,6 +2,7 @@
 
 CLI that auto-configures OAuth providers for Next.js projects. Given your OAuth credentials, it plugs them into `.env` files, generates NextAuth.js route files, and creates any missing config — zero external dependencies.
 
+> **A [Remembrance.LLC](#about-remembrancellc) project.**
 > **Part of the [Remembrance Ecosystem](https://github.com/Crackedcoder5TH/Void-Data-Compressor)** —
 > reference implementation of [Coherency Protocol v1.0](https://github.com/Crackedcoder5TH/Void-Data-Compressor/blob/main/COHERENCY_PROTOCOL.md).
 > **Role**: standalone OAuth-configuration CLI used by other ecosystem repos to wire NextAuth into Next.js apps. Functions independently of the rest of the ecosystem.
@@ -103,3 +104,16 @@ node --test tests/*.test.js
 ## License
 
 MIT
+
+---
+
+## About Remembrance.LLC
+
+Published by **Remembrance.LLC** as the OAuth-configuration tool for
+the Remembrance Ecosystem. Code is MIT-licensed. The CLI **never
+transmits credentials anywhere** — `.env.local` and the generated
+NextAuth route file stay on the user's host.
+
+---
+
+*© Remembrance.LLC. MIT-licensed.*
