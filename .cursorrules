@@ -1,5 +1,7 @@
-The canonical agent instructions for this repo are in AI.md at the repo root.
+# Cursor pointer
 
-Read AI.md before doing anything else. All rules, capabilities, and
-ecosystem-specific constraints live there. This file exists only to
-surface AI.md under the conventional filename your tool checks first.
+First-read: ECOSYSTEM.md — the 12-repo Remembrance protocol.
+Then AI.md for repo-local instructions.
+
+Both files live at the repo root. The cross-repo protocol in
+ECOSYSTEM.md overrides any per-repo conventions.

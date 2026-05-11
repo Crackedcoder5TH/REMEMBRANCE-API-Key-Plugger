@@ -1,5 +1,11 @@
 # OAuth Plugger — AI Instructions
 
+> **STOP. Before doing anything else, read `ECOSYSTEM.md` in this repo's
+> root.** It defines the 12-repo Remembrance ecosystem and the required
+> end-to-end workflow (audit → reflect → covenant → swarm → substrate →
+> ledger) for every code change. The cross-repo protocol overrides any
+> per-repo conventions.
+
 > **Applies to any AI agent working in this repo** (Claude, Cursor,
 > Aider, Continue, Windsurf, Cody, etc.). `CLAUDE.md` is a pointer to
 > this file — instructions are tool-neutral.

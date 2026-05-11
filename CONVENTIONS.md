@@ -1,12 +1,7 @@
-# Agent-instructions pointer
+# Conventions for AI agents
 
-The canonical agent instructions for this repo are in [AI.md](./AI.md).
+> **First-read: [`ECOSYSTEM.md`](./ECOSYSTEM.md) — the 12-repo Remembrance
+> protocol.** Then [`AI.md`](./AI.md) for repo-local instructions.
 
-Any AI agent working in this repo — including those using the
-`AGENTS.md`, `GROK.md`, `CONVENTIONS.md`, `CLAUDE.md`, or
-`copilot-instructions.md` filename conventions — should read `AI.md`
-before doing anything else.
-
-This file exists only to surface `AI.md` under the conventional
-filename your tool checks first. The single source of truth is
-`AI.md` at the repo root.
+Tool-neutral instructions live in `AI.md`. Aider, Continue, and other
+agents that look for `CONVENTIONS.md` should defer to those two files.
