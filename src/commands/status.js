@@ -62,6 +62,33 @@ async function statusCommand(parsed, projectDir) {
   } catch { /* no gitignore */ }
   console.log(`  ${gitignoreCoversEnv ? checkMark : warnMark} .gitignore covers .env`);
 
+  // Contribute project completeness to the LRE field. cost = total
+  // checks, coherence = passing/total. Each boolean above is a moving
+  // number; the aggregate participates in the conserved field.
+  try {
+    const envPathLocal = project.envFile || path.join(projectDir, '.env.local');
+    const envExistsLocal = fs.existsSync(envPathLocal);
+    const checks = [
+      !!project.packageJson,
+      !!project.framework,
+      project.framework === 'nextjs' ? !!project.hasNextAuth : true,
+      envExistsLocal,
+      gitignoreCoversEnv,
+    ];
+    const passing = checks.filter(Boolean).length;
+    const enginePaths = [
+      'remembrance-oracle-toolkit/src/core/field-coupling',
+      path.join(__dirname, '..', '..', '..', 'remembrance-oracle-toolkit', 'src', 'core', 'field-coupling'),
+    ];
+    for (const p of enginePaths) {
+      try {
+        const { contribute } = require(p);
+        contribute({ cost: checks.length, coherence: passing / checks.length, source: 'plugger:status' });
+        break;
+      } catch (_e) { /* try next */ }
+    }
+  } catch (_e) { /* best-effort */ }
+
   console.log('');
 }
 
