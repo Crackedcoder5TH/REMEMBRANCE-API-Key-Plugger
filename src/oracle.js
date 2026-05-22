@@ -181,6 +181,48 @@ async function feedbackToOracle(id, success) {
   }
 }
 
+/**
+ * Try to load the oracle toolkit's coherency scorer locally
+ * (src/unified/coherency). Sibling-clone fallback: when the toolkit
+ * is installed as a dep OR cloned alongside this repo, the Plugger
+ * can score patterns locally instead of round-tripping over HTTP.
+ *
+ * Returns the computeCoherencyScore function, or null when unreachable.
+ */
+function localCoherencyScorer() {
+  const candidates = [
+    'remembrance-oracle-toolkit/src/unified/coherency',
+    path.join(__dirname, '..', '..', 'remembrance-oracle-toolkit', 'src', 'unified', 'coherency'),
+    path.join(__dirname, '..', '..', '..', 'remembrance-oracle-toolkit', 'src', 'unified', 'coherency'),
+  ];
+  for (const p of candidates) {
+    try {
+      const m = require(p);
+      if (m && typeof m.computeCoherencyScore === 'function') return m.computeCoherencyScore;
+    } catch (_e) { /* try next */ }
+  }
+  return null;
+}
+
+/**
+ * Try to load the Remembrance lexicon locally
+ * (src/core/remembrance-lexicon). Surfaced in `plugger status` so users
+ * can see whether the canonical vocabulary is reachable.
+ *
+ * Returns the lexicon module, or null when unreachable.
+ */
+function localLexicon() {
+  const candidates = [
+    'remembrance-oracle-toolkit/src/core/remembrance-lexicon',
+    path.join(__dirname, '..', '..', 'remembrance-oracle-toolkit', 'src', 'core', 'remembrance-lexicon'),
+    path.join(__dirname, '..', '..', '..', 'remembrance-oracle-toolkit', 'src', 'core', 'remembrance-lexicon'),
+  ];
+  for (const p of candidates) {
+    try { return require(p); } catch (_e) { /* try next */ }
+  }
+  return null;
+}
+
 module.exports = {
   getConfig,
   isOracleAvailable,
@@ -189,4 +231,6 @@ module.exports = {
   covenantCheck,
   submitToOracle,
   feedbackToOracle,
+  localCoherencyScorer,
+  localLexicon,
 };

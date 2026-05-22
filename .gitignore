@@ -1,0 +1,16 @@
+node_modules/
+
+# OAuth secrets — never commit credentials.
+.env
+.env.local
+.env*.local
+*.keypair.json
+
+# Runtime artifacts — the .remembrance store (SQLite DB, field state)
+# is generated at runtime, never source. Matches the ecosystem-wide
+# .gitignore convention.
+.remembrance/oracle.db
+.remembrance/oracle.db-wal
+.remembrance/oracle.db-shm
+.remembrance/entropy.json
+.remembrance/ledger.json

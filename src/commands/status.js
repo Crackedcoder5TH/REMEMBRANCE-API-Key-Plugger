@@ -89,6 +89,19 @@ async function statusCommand(parsed, projectDir) {
     }
   } catch (_e) { /* best-effort */ }
 
+  // Surface whether the local toolkit primitives are reachable. A
+  // sibling-cloned toolkit lets the Plugger score patterns locally
+  // (src/unified/coherency) and label them with the canonical
+  // vocabulary (src/core/remembrance-lexicon) instead of always
+  // round-tripping over HTTP.
+  try {
+    const { localCoherencyScorer, localLexicon } = require('../oracle');
+    const hasCoherency = !!localCoherencyScorer();
+    const hasLexicon = !!localLexicon();
+    console.log(`  ${hasCoherency ? checkMark : warnMark} Local oracle coherency scorer`);
+    console.log(`  ${hasLexicon ? checkMark : warnMark} Remembrance lexicon`);
+  } catch (_e) { /* oracle bridge unavailable */ }
+
   console.log('');
 }
 
