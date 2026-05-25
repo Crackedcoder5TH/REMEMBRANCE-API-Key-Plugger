@@ -11,6 +11,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
+const { fieldContribute } = require('../field');
 
 const ALGORITHM = 'aes-256-gcm';
 const KEY_LENGTH = 32;
@@ -86,32 +87,49 @@ function saveStore(store) {
 
 /** Save a key for a service */
 function saveKey(service, { key, url, metadata } = {}) {
-  const store = loadStore();
-  store[service] = {
-    key: encrypt(key),
-    url: url || null,
-    metadata: metadata || {},
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  };
-  saveStore(store);
-  return true;
+  try {
+    const store = loadStore();
+    store[service] = {
+      key: encrypt(key),
+      url: url || null,
+      metadata: metadata || {},
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    saveStore(store);
+    // Issuing a key landed cleanly. Source is the coarse operation
+    // name only — never the service or key material.
+    fieldContribute({ coherence: 0.9, source: 'apikey:issue' });
+    return true;
+  } catch (err) {
+    fieldContribute({ coherence: 0.2, source: 'apikey:issue' });
+    throw err;
+  }
 }
 
 /** Retrieve a key for a service (decrypted) */
 function getKey(service) {
   const store = loadStore();
   const entry = store[service];
-  if (!entry) return null;
+  if (!entry) {
+    // No such key — a validation miss, not an error.
+    fieldContribute({ coherence: 0.3, source: 'apikey:validate' });
+    return null;
+  }
   try {
-    return {
+    const result = {
       key: decrypt(entry.key),
       url: entry.url,
       metadata: entry.metadata,
       createdAt: entry.createdAt,
       updatedAt: entry.updatedAt,
     };
+    // Key resolved and authenticated (auth tag verified by decrypt).
+    fieldContribute({ coherence: 0.9, source: 'apikey:validate' });
+    return result;
   } catch {
+    // Decryption / auth-tag failure (master key changed, tampering).
+    fieldContribute({ coherence: 0.3, source: 'apikey:validate' });
     return null; // decryption failed (master key changed?)
   }
 }
@@ -139,19 +157,29 @@ function listKeys() {
 /** Remove a service key */
 function removeKey(service) {
   const store = loadStore();
-  if (!store[service]) return false;
+  if (!store[service]) {
+    // Nothing to revoke — request denied.
+    fieldContribute({ coherence: 0.4, source: 'apikey:revoke' });
+    return false;
+  }
   delete store[service];
   saveStore(store);
+  fieldContribute({ coherence: 0.9, source: 'apikey:revoke' });
   return true;
 }
 
 /** Replace a service key */
 function rotateKey(service, newKey) {
   const store = loadStore();
-  if (!store[service]) return false;
+  if (!store[service]) {
+    // No existing key to rotate — request denied.
+    fieldContribute({ coherence: 0.4, source: 'apikey:rotate' });
+    return false;
+  }
   store[service].key = encrypt(newKey);
   store[service].updatedAt = new Date().toISOString();
   saveStore(store);
+  fieldContribute({ coherence: 0.9, source: 'apikey:rotate' });
   return true;
 }
 
