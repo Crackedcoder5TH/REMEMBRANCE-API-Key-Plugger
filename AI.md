@@ -10,6 +10,27 @@
 > Aider, Continue, Windsurf, Cody, etc.). `CLAUDE.md` is a pointer to
 > this file — instructions are tool-neutral.
 
+
+---
+
+## The shape at every scale
+
+**Show it something. It tells you what that resembles in everything already proven. What coheres, it keeps. What it keeps makes the next answer truer.**
+
+The loop is the same at every scale — *encounter → match against what's proven → does it cohere? → what survives is remembered.* This repo is one beat of that loop. Read its specific role below; remember it's the same loop, zoomed.
+
+| Scale | encounter | match against proven | cohere? | what survives is remembered |
+|---|---|---|---|---|
+| **A pattern** | a snippet arrives | encode it, compare to the verified library | resonance score | if it runs + passes, it joins the library |
+| **An agent** | proposes a solution | scored against proven patterns | coherency + safety + execution | strong proposals become patterns |
+| **A council** | many agents answer | cross-checked against each other's tests | consensus + agreement | the winner can teach the covenant |
+| **The field** | every reading flows in | integrated into one conserved scalar | global coherency rises or thins | what's measured reshapes what's trusted |
+| **A field-of-fields** | many fields federate | each absorbs the others' aggregate | the network coheres | truth converges across independent sources |
+
+That recursion is *why* anti-hallucination is emergent rather than a feature: an invented function, a fabricated citation, a claim nothing supports — they all fail the same test at every scale, so they don't survive the loop and aren't kept. The defense against fabrication is identical to the definition of the system.
+
+---
+
 ## What This Repo Is
 
 A standalone CLI that auto-configures OAuth providers for Next.js
