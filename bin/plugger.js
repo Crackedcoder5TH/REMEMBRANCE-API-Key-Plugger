@@ -9,7 +9,6 @@ const listCmd = require('../src/commands/list');
 const statusCmd = require('../src/commands/status');
 const removeCmd = require('../src/commands/remove');
 const apiKeyCmd = require('../src/commands/api-key');
-const registerPatternsCmd = require('../src/commands/register-patterns');
 
 const VERSION = '1.0.0';
 
@@ -20,7 +19,6 @@ const COMMANDS = {
   status: { handler: statusCmd, desc: 'Show config completeness and file status' },
   remove: { handler: removeCmd, desc: 'Remove an OAuth provider' },
   'api-key': { handler: apiKeyCmd, desc: 'Manage API keys for services (oracle, stripe, openai, etc.)' },
-  'register-patterns': { handler: registerPatternsCmd, desc: 'Register Plugger source code as Oracle patterns' },
 };
 
 function showHelp() {

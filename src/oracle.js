@@ -11,6 +11,7 @@ const https = require('https');
 const { URL } = require('url');
 const fs = require('fs');
 const path = require('path');
+const { requireOracle } = require('./oracle-link');
 
 /** Read Oracle config from env vars or .plugger.json */
 function getConfig() {
@@ -183,25 +184,16 @@ async function feedbackToOracle(id, success) {
 
 /**
  * Try to load the oracle toolkit's coherency scorer locally
- * (src/unified/coherency). Sibling-clone fallback: when the toolkit
- * is installed as a dep OR cloned alongside this repo, the Plugger
- * can score patterns locally instead of round-tripping over HTTP.
+ * (src/unified/coherency) via oracle-link — the one canonical resolver
+ * ($ORACLE_ROOT / vendor / node_modules / sibling clone). When
+ * reachable, the Plugger scores patterns locally instead of
+ * round-tripping over HTTP.
  *
  * Returns the computeCoherencyScore function, or null when unreachable.
  */
 function localCoherencyScorer() {
-  const candidates = [
-    'remembrance-oracle-toolkit/src/unified/coherency',
-    path.join(__dirname, '..', '..', 'remembrance-oracle-toolkit', 'src', 'unified', 'coherency'),
-    path.join(__dirname, '..', '..', '..', 'remembrance-oracle-toolkit', 'src', 'unified', 'coherency'),
-  ];
-  for (const p of candidates) {
-    try {
-      const m = require(p);
-      if (m && typeof m.computeCoherencyScore === 'function') return m.computeCoherencyScore;
-    } catch (_e) { /* try next */ }
-  }
-  return null;
+  const m = requireOracle('src/unified/coherency');
+  return (m && typeof m.computeCoherencyScore === 'function') ? m.computeCoherencyScore : null;
 }
 
 /**
@@ -212,15 +204,7 @@ function localCoherencyScorer() {
  * Returns the lexicon module, or null when unreachable.
  */
 function localLexicon() {
-  const candidates = [
-    'remembrance-oracle-toolkit/src/core/remembrance-lexicon',
-    path.join(__dirname, '..', '..', 'remembrance-oracle-toolkit', 'src', 'core', 'remembrance-lexicon'),
-    path.join(__dirname, '..', '..', '..', 'remembrance-oracle-toolkit', 'src', 'core', 'remembrance-lexicon'),
-  ];
-  for (const p of candidates) {
-    try { return require(p); } catch (_e) { /* try next */ }
-  }
-  return null;
+  return requireOracle('src/core/remembrance-lexicon');
 }
 
 module.exports = {
