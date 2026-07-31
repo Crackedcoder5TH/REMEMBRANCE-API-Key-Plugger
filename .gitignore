@@ -14,3 +14,8 @@ node_modules/
 .remembrance/oracle.db-shm
 .remembrance/entropy.json
 .remembrance/ledger.json
+
+# Goggles instrument cache — regenerable per-repo, never committed (hub convention)
+.remembrance/goggles-map.json
+.remembrance/goggles-readings.json
+.remembrance/goggles-learning.json
