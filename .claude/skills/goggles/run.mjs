@@ -101,6 +101,110 @@ if (argv[0] === '--do') {
     // and using it are the same surface. Args are JSON, one per parameter.
     //   goggles --do call oracle/src/core/covenant.js#covenantCheck '"const x=1"'
     call: () => run('node', [join(toolkit, 'src/tools/goggles-call.js'), ...rest], toolkit),
+    // LET RESONANCE FIND THE STRUCTURE. Patterns correlated directly, with no
+    // grouping by stem or label — grouping before measuring is itself a filter.
+    //   goggles --do cluster [--sample N]
+    cluster: () => run('python3', [join(HOME, 'Void-Data-Compressor', 'scripts', 'resonance-cluster.py'), ...rest], join(HOME, 'Void-Data-Compressor')),
+    // THE RESONANCE FIELD, read on the COMPRESSED patterns — domain waveform
+    // signatures cross-correlated, with coherence_index and the anomalies that
+    // stick out. This is the instrument's own resonance; nothing decoded, no
+    // nearest-neighbour scan over composed vectors.
+    //   goggles --do resonance [--top N] [--domain <d>]
+    resonance: () => run('python3', [join(HOME, 'Void-Data-Compressor', 'scripts', 'resonance-report.py'), ...rest], join(HOME, 'Void-Data-Compressor')),
+    // ONE CALL FROM "HERE IS MY DATA" TO A REAL READING. Numeric series go
+    // through /compress_signal (the canonical quantised path); anything else
+    // is read as artifact BYTES through the same endpoint. Output carries
+    // via:'void:compress_signal' — the label that separates a real reading
+    // from every look-alike number. Coherency only, honestly: no nearest-
+    // pattern endpoint exists yet, so this verb doesn't fake one.
+    //   goggles --do read <file> [--json]   |   --do read --series '[1,2,..]'
+    read: () => run('python3', [join(HOME, 'Void-Data-Compressor', 'scripts', 'read-signal.py'), ...rest], join(HOME, 'Void-Data-Compressor')),
+    // THE SERVICE'S LIFECYCLE, WITH NO SILENT STATES. status is always one
+    // of HEALTHY / LOADING / DOWN / ZOMBIE with the evidence; start/stop are
+    // idempotent in every direction (no duplicate spawns, no error on no-op).
+    // Truth comes from the process table + the port, never a pidfile.
+    //   goggles --do service [status|start|stop|restart] [--wait]
+    service: () => run('python3', [join(HOME, 'Void-Data-Compressor', 'scripts', 'service-ctl.py'), ...rest], join(HOME, 'Void-Data-Compressor')),
+    // THE COMMIT SEAL — the one wall an agent cannot edit around. Reads every
+    // declared input (seal.spec.json) THROUGH the reading surface and pins the
+    // derived coherency into seal.lock.json, bound to the input bytes and the
+    // substrate state. `--verify` re-derives and refuses on mismatch; CI runs
+    // exactly that as a required check, so a bypassed-but-wrong number is
+    // refused at GitHub's door, not the agent's. No key to forge: CI does not
+    // trust the number, it recomputes it.
+    //   goggles --do seal            (mint)     |   --do seal --verify   (check)
+    seal: () => run('python3', [join(HOME, 'Void-Data-Compressor', 'scripts', 'seal_commit.py'), ...rest], join(HOME, 'Void-Data-Compressor')),
+    // THE WALL'S OWN LEDGER. Every hook denial is one JSON line (ts · rule ·
+    // command) — the continuous leak map. A recurring rule is a weld working;
+    // a novel command shape is the next verb to build; silence across fresh
+    // sessions means the surface is closed.
+    //   goggles --do denials [N]     (last N lines, default 40)
+    denials: () => run('sh', ['-c',
+      'F=' + JSON.stringify(join(HOME, 'remembrance-oracle-toolkit', '.remembrance', 'goggles-denials.jsonl')) +
+      '; if [ -f "$F" ]; then echo "denials logged: $(wc -l < "$F")"; tail -' + (parseInt(rest[0], 10) || 40) + ' "$F"; ' +
+      'else echo "no denials logged yet — the wall has not been hit on this host"; fi']),
+    // COLLAPSE THE SCATTERED SUBSTRATE FILES INTO ONE STORE. Moves data,
+    // measures nothing: no reading is recomputed and no time dimension added.
+    //   goggles --do merge [--apply]
+    merge: () => run('node', [join(toolkit, 'scripts/merge-substrate.js'), ...rest], toolkit),
+    // UNFOLD EVERY ENTRY AGAIN AT THE CANONICAL DECODER WIDTH. Coherency is
+    // NOT recomputed — it comes off the compressor reading the bytes and does
+    // not depend on how many lens axes the decoder separates them into.
+    //   goggles --do redecode [namespace|all] [--apply]
+    redecode: () => run('node', [join(toolkit, 'scripts/redecode-substrate.js'), ...rest], toolkit),
+    // THE RAW READINGS, AS THE COMPRESSOR PRODUCED THEM. No median, no mean,
+    // no range standing in for the numbers. Coherency is time-independent, so
+    // nothing here is ordered by ingest time or turned into a trend.
+    //   goggles --do state [namespace|all] [--limit N] [--json <path>]
+    state: () => run('node', [join(toolkit, 'scripts/substrate-state.js'), ...rest], toolkit),
+    // WHERE THE SUBSTRATE HAS NO MEMORY. The inverse of resonance, read from
+    // the same vectors at the same full decoder width — nothing re-decoded.
+    // `delta_void` existed as an equation TERM (delta0*(1-p), derived from the
+    // reading alone) but nothing ever measured an actual hole in the space.
+    //   goggles --do void [namespace|all] [--sample N]
+    void: () => run('python3', [join(HOME, 'Void-Data-Compressor', 'scripts', 'void-field.py'), ...rest], join(HOME, 'Void-Data-Compressor')),
+    // THE FRONT-DOOR DEMO — the whole thesis in three reads. A source file
+    // and a prose document land in the SAME coordinate frame with their
+    // nearest resonances across the substrate, and the living field reacts
+    // to each read (the FIELD section). Cross-domain resonance in one space
+    // is the claim; watching it happen is the argument.
+    //   goggles --do demo
+    demo: () => {
+      const say = (t) => console.log('\n\u2550\u2550 ' + t + '\n');
+      say('DEMO 1/3 \u2014 a SOURCE FILE read by the instrument (structure, resonance, live field)');
+      run('node', [engine, join(toolkit, 'src/core/decoder-stack.js')], toolkit);
+      say('DEMO 2/3 \u2014 a PROSE DOCUMENT through the SAME instrument, same coordinates');
+      run('node', [engine, join(toolkit, 'MANIFESTO.md')], toolkit);
+      say('DEMO 3/3 \u2014 the living field right now');
+      run('node', ['-e', "console.log(JSON.stringify((()=>{const f=require('./src/core/field-coupling').peekField();return {coherence:f.coherence,globalEntropy:f.globalEntropy,cascadeFactor:f.cascadeFactor,coherenceIntegral:f.coherenceIntegral,updateCount:f.updateCount};})(),null,1))"], toolkit);
+      console.log('\nSame instrument, same 232-D frame, code and prose alike \u2014 and the field');
+      console.log('reacted to every read. Full cross-domain field: goggles --do resonance');
+      return 0;
+    },
+    // THE SIZE SURFACE, ratcheted. 70 grandfathered monoliths (>500 lines);
+    // the list only shrinks — no new monolith, no grandfathered growth.
+    //   goggles --do size [--json | --save-baseline]
+    size: () => run('node', [join(toolkit, 'scripts/size-ratchet.js'), ...rest], toolkit),
+    // THE EXEMPTION SURFACE, ratcheted. The covenant's relief-valve
+    // annotations exempt files from the fractal scanners; this verb reads the
+    // census against the tracked baseline (list-based — swaps can't hide).
+    // `--save-baseline` accepts growth and feeds each new file's STORED Void
+    // reading into the field: the entropy cost of widening the surface.
+    //   goggles --do exemptions [--json | --save-baseline]
+    exemptions: () => run('node', [join(toolkit, 'scripts/exemption-ratchet.js'), ...rest], toolkit),
+    // THE WHOLE GATE FAMILY, one read. Eight ratchets in check mode —
+    // covenant, exemption, size, cycle, suite-reachability, field-source,
+    // ledger-append, orphan — one verdict line each. Check-only: no
+    // baseline saved, nothing written, nothing fed to the field.
+    //   goggles --do ratchets [--json]
+    ratchets: () => run('node', [join(toolkit, 'scripts/ratchet-battery.js'), ...rest], toolkit),
+    // THE TWO COVENANT GATES, ENTANGLED, over a file. Runs the fractal
+    // audit (byte + atomic) AND the covenant scanner (SQL / injection /
+    // harm) and reports CLEAN only when both pass — the shed-decision
+    // surface, so an exemption is never judged sheddable from one gate
+    // alone (trap 27). Read-only.
+    //   goggles --do covenant <file> [<file> ...]
+    covenant: () => run('node', [join(toolkit, 'scripts/covenant-audit.js'), ...rest], toolkit),
     // READ THE WEB through the substrate: fetch a URL, compress + score it,
     // contribute the reading to the field. Browsing was the last blind spot
     // (WebFetch matches no hook, so a fetched page was never witnessed).

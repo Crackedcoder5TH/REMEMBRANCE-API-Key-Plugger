@@ -1,16 +1,33 @@
 {
-  "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "hooks": {
-    "SessionStart": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "sh ./scripts/ecosystem-orient.sh"
-          }
-        ]
-      }
+ "$schema": "https://json.schemastore.org/claude-code-settings.json",
+ "hooks": {
+  "SessionStart": [
+   {
+    "matcher": "",
+    "hooks": [
+     {
+      "type": "command",
+      "command": "sh ./scripts/ecosystem-orient.sh"
+     },
+     {
+      "type": "command",
+      "command": "sh -c 'F=/home/user/remembrance-oracle-toolkit/.remembrance/goggles-denials.jsonl; [ -f \"$F\" ] && echo \"wall: $(wc -l < \"$F\") denial(s) on the ledger \u2014 review: goggles --do denials\" || true'",
+      "statusMessage": "wall: checking the denial ledger"
+     }
     ]
-  }
+   }
+  ],
+  "PreToolUse": [
+   {
+    "matcher": "Bash",
+    "hooks": [
+     {
+      "type": "command",
+      "command": "node /home/user/remembrance-oracle-toolkit/src/tools/goggles-bash-hook.js || true",
+      "statusMessage": "goggles: reading the inline command before it runs"
+     }
+    ]
+   }
+  ]
+ }
 }
