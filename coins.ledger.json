@@ -1240,6 +1240,67 @@
      "shape_sha256": "8454424bbded4ce073bfabb4d693d3317053517f3cd62fb67bdefd4c9991ef69"
     }
    }
+  },
+  {
+   "v": "change-coin/v1",
+   "coin_id": "c8ae46cdb9a0d611a62796330cce75ada234e23172bfc58a118c6a784ec73beb",
+   "minted_at": "2026-09-12T22:13:38+00:00",
+   "minted_by": "goggles --do mint",
+   "change": {
+    "repo": "REMEMBRANCE-API-Key-Plugger",
+    "base_tree": "1b46afc92faf1a594f892a583aae0ffa33a590d8",
+    "files": [
+     ".claude/skills/goggles/SKILL.md",
+     ".claude/skills/goggles/change-coin.py",
+     ".claude/skills/goggles/run.mjs",
+     ".claude/skills/goggles/traps.seed.json"
+    ],
+    "diff_bytes": 21864,
+    "diff_sha256": "bbd07b25660723421415244f8e39c32083f6214221b13cb5583c2dfe2a35d9fc"
+   },
+   "reading": {
+    "coherency": 0.15006130852802577,
+    "ratio": 2.768996960486322,
+    "method": "void_v4_chunked",
+    "strategy": "v4_chunked",
+    "lossless": true,
+    "via": "void:compress_signal",
+    "mint": "ecb8d73b797b4084",
+    "void_seal": {
+     "substrate": "void",
+     "state_id": null,
+     "data_sha256": "a0c0bed3d700b8016ed53f406844b97eec140575706a8efb9b1821a7b40fa65c",
+     "via": "void_compressor_v5.compress",
+     "at": "2026-09-12T22:13:38",
+     "coin": null,
+     "sig": "ecb8d73b797b4084dbd1801942ecf4a8a194f87bbdd846fb73a7507f881acb7e"
+    },
+    "library_size": 2462,
+    "memory": {
+     "fits": 476,
+     "served": 476,
+     "computed": 0,
+     "served_ancestor": 0,
+     "chunkings": 6,
+     "chunkings_served": 6,
+     "entries": 182794
+    },
+    "elapsed_s": 0.086,
+    "basis_id": "7749bb68270a14db",
+    "learned_n": 2390,
+    "learned_this_reading": 0,
+    "commitment": {
+     "canon": "void-seal/v3",
+     "basis_id": "7749bb68270a14db",
+     "method": "v4_chunked",
+     "original_size": 21864,
+     "compressed_size": 7896,
+     "coherency": 0.15006130852802577,
+     "data_sha256": "45bea46de49dc0ca2c29eb1575948f0fd4fe4bce8c319e0ca190d6fe4ab5f091",
+     "compressed_sha256": "f209f4bc4d3ec2e66e5421bc58006883453ab5d98afa99117f7a6c6a3a8afb74",
+     "shape_sha256": "5e08998e7e8a2cf061d703b8e48076d0af44aa4c2215280456c9ed0a96177ae0"
+    }
+   }
   }
  ]
 }
