@@ -1906,6 +1906,76 @@
      "shape_sha256": "afbe1f87bdf99291f308cc4a8606e63ad5d5214df740b38d4b1a734c50665b91"
     }
    }
+  },
+  {
+   "v": "change-coin/v1",
+   "coin_id": "4f8f5da7a4cd2857f741ab8fd11f1d334b05668d456b4d8c0cd42535b92d0175",
+   "minted_at": "2026-09-17T23:12:57+00:00",
+   "minted_by": "goggles --do mint",
+   "change": {
+    "repo": "REMEMBRANCE-API-Key-Plugger",
+    "base_tree": "1e7d765b43cd5da6b544c9271fdb3bcf757966a6",
+    "files": [
+     ".claude/skills/goggles/run.mjs"
+    ],
+    "diff_bytes": 4288,
+    "diff_sha256": "5f1556cd76635722ae56ead56370bf7ee66f512716f16d987063058dfc840ece",
+    "excludes": [
+     "coins.ledger.json"
+    ]
+   },
+   "reading": {
+    "coherency": 0.23093471826900044,
+    "ratio": 2.5508625817965496,
+    "method": "void_v4_chunked",
+    "strategy": "v4_chunked",
+    "lossless": true,
+    "via": "void:compress_signal",
+    "mint": "5849a018ba8abf77",
+    "void_seal": {
+     "substrate": "void",
+     "state_id": null,
+     "data_sha256": "8d68a11b6bd22af49347d18118dedadf3d6ada1506cf8bbccb677b75b2b8bfa6",
+     "via": "void_compressor_v5.compress",
+     "at": "2026-09-17T23:12:57",
+     "coin": null,
+     "sig": "5849a018ba8abf77e1a66ea5254ba73122139f40428b838e77b77dea17a19e46"
+    },
+    "library_size": 27707,
+    "memory": {
+     "fits": 101,
+     "served": 101,
+     "computed": 0,
+     "served_ancestor": 0,
+     "chunkings": 6,
+     "chunkings_served": 6,
+     "entries": 3189260,
+     "void_chunks": 0,
+     "ingested": 0,
+     "served_single": 0,
+     "searched": 0,
+     "void_threshold": 0.5
+    },
+    "elapsed_s": 0.021,
+    "basis_id": "e9abfb8acd26d5fa",
+    "learned_n": 27635,
+    "learned_this_reading": 0,
+    "basis_after": "e9abfb8acd26d5fa",
+    "read_as": "bytes",
+    "ingest": false,
+    "data": null,
+    "commitment": {
+     "canon": "void-seal/v3",
+     "basis_id": "e9abfb8acd26d5fa",
+     "method": "v4_chunked",
+     "original_size": 4288,
+     "compressed_size": 1681,
+     "coherency": 0.23093471826900044,
+     "data_sha256": "337b7620b8d44020e802d1083584839c1b3ff9d710bcdc65fd9252778fb5960a",
+     "compressed_sha256": "60aeab5c0a5369530f4b313a9c44984588af7aee01a0a5021fc7f54ed923b42a",
+     "shape_sha256": "1dac109c2e8ff8dce8d6f40259312ae3ee4460f0400d28c2b491693e6b0fc72a"
+    }
+   }
   }
  ]
 }
