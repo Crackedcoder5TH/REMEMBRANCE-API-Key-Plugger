@@ -2680,6 +2680,76 @@
      "shape_sha256": "115f6c275ab72329690d2d8214f4f4a00e33ebab3102a7cd801dfe8613401d80"
     }
    }
+  },
+  {
+   "v": "change-coin/v1",
+   "coin_id": "524916fb8f1426276aad94ad6b927eef0fbf0b0292bebcb26414922bd052b85a",
+   "minted_at": "2026-10-01T04:45:05+00:00",
+   "minted_by": "goggles --do mint",
+   "change": {
+    "repo": "REMEMBRANCE-API-Key-Plugger",
+    "base_tree": "957383b2d6baf8fc4710ea386ab86ab0591232b4",
+    "files": [
+     ".claude/skills/goggles/traps.seed.json"
+    ],
+    "diff_bytes": 2132,
+    "diff_sha256": "24d768825c4c54674e901d524c49d6a599cada1835d73a0eb18025faac8b36f7",
+    "excludes": [
+     "coins.ledger.json"
+    ]
+   },
+   "reading": {
+    "coherency": 0.27621828935224163,
+    "ratio": 3.0198300283286117,
+    "method": "void_v4_chunked",
+    "strategy": "v4_chunked",
+    "lossless": true,
+    "via": "void:compress_signal",
+    "mint": "5a1933d9a68b1a2a",
+    "void_seal": {
+     "substrate": "void",
+     "state_id": null,
+     "data_sha256": "97fbf3cc637e4f6f5f4b4b95222e90eb3b650ce16563133e73712a1f127887f2",
+     "via": "void_compressor_v5.compress",
+     "at": "2026-10-01T04:45:05",
+     "coin": null,
+     "sig": "5a1933d9a68b1a2a959b54e2c42b163ba59247ba872745c8e917116bcdaa3317"
+    },
+    "library_size": 63056,
+    "memory": {
+     "fits": 49,
+     "served": 49,
+     "computed": 0,
+     "served_ancestor": 0,
+     "chunkings": 6,
+     "chunkings_served": 6,
+     "entries": 1165989,
+     "void_chunks": 0,
+     "ingested": 0,
+     "served_single": 0,
+     "searched": 0,
+     "void_threshold": 0.5
+    },
+    "elapsed_s": 0.006,
+    "basis_id": "946f986225f0f422",
+    "learned_n": 62984,
+    "learned_this_reading": 0,
+    "basis_after": "946f986225f0f422",
+    "read_as": "bytes",
+    "ingest": false,
+    "data": null,
+    "commitment": {
+     "canon": "void-seal/v3",
+     "basis_id": "946f986225f0f422",
+     "method": "v4_chunked",
+     "original_size": 2132,
+     "compressed_size": 706,
+     "coherency": 0.27621828935224163,
+     "data_sha256": "646d28a8ef6e96f0065f932b2a26aeeaf1ec62c959b3abd40f871195981b62ee",
+     "compressed_sha256": "b0850078df96041da3ff77fc6547e64784c0d820035c26e927126eee4cca4dab",
+     "shape_sha256": "324762252749a12260134410c238454116ff935e6213b0b3ed318d5695a264a3"
+    }
+   }
   }
  ]
 }
