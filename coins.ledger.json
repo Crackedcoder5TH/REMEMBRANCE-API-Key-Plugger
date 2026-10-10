@@ -2820,6 +2820,76 @@
      "shape_sha256": "9504736d18ac4183c6ef958111c88163c06b7ca5c22f75848a21477258460629"
     }
    }
+  },
+  {
+   "v": "change-coin/v1",
+   "coin_id": "e03591d95112608346fc5b4b56333c375754fb8cab9be760eb250f1086c443e7",
+   "minted_at": "2026-10-06T15:01:05+00:00",
+   "minted_by": "goggles --do mint",
+   "change": {
+    "repo": "REMEMBRANCE-API-Key-Plugger",
+    "base_tree": "4ce38d8cb61610ecd47af8541b562c8371430ca4",
+    "files": [
+     ".claude/skills/goggles/run.mjs"
+    ],
+    "diff_bytes": 1672,
+    "diff_sha256": "9261ab69e4b4e300e7094e3fdc035381b6232e9dec7218f2b9aa2cf09b80b83e",
+    "excludes": [
+     "coins.ledger.json"
+    ]
+   },
+   "reading": {
+    "coherency": 0.1743686462993293,
+    "ratio": 2.1742522756827047,
+    "method": "void_v4_chunked",
+    "strategy": "v4_chunked",
+    "lossless": true,
+    "via": "void:compress_signal",
+    "mint": "ba576d44a1bfc5ab",
+    "void_seal": {
+     "substrate": "void",
+     "state_id": null,
+     "data_sha256": "45f3b131917e7604f526f5790c6870e4317a8034a7dcbbef2491797627569ad7",
+     "via": "void_compressor_v5.compress",
+     "at": "2026-10-06T15:01:05",
+     "coin": null,
+     "sig": "ba576d44a1bfc5abeb5f70c561f4aaa5c6f9479d78ebd28a417bebedf69e308b"
+    },
+    "library_size": 63056,
+    "memory": {
+     "fits": 34,
+     "served": 34,
+     "computed": 0,
+     "served_ancestor": 0,
+     "chunkings": 5,
+     "chunkings_served": 5,
+     "entries": 107314,
+     "void_chunks": 0,
+     "ingested": 0,
+     "served_single": 0,
+     "searched": 0,
+     "void_threshold": 0.5
+    },
+    "elapsed_s": 0.009,
+    "basis_id": "946f986225f0f422",
+    "learned_n": 62984,
+    "learned_this_reading": 0,
+    "basis_after": "946f986225f0f422",
+    "read_as": "bytes",
+    "ingest": false,
+    "data": null,
+    "commitment": {
+     "canon": "void-seal/v3",
+     "basis_id": "946f986225f0f422",
+     "method": "v4_chunked",
+     "original_size": 1672,
+     "compressed_size": 769,
+     "coherency": 0.1743686462993293,
+     "data_sha256": "d4f5cc4470d7639845d4b86d96d5a6504c9ddb020ad0801322ab3e8b65237680",
+     "compressed_sha256": "2e091815ed35eb74006d74c48bba8c90685fe8f2536aff75a9a20772af111cfc",
+     "shape_sha256": "d56dbb973081482d30ee84bbb60ddf6037c8f924f943a6a14e1452d44bbdbd95"
+    }
+   }
   }
  ]
 }
