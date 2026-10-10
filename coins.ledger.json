@@ -2683,6 +2683,216 @@
   },
   {
    "v": "change-coin/v1",
+   "coin_id": "50d65a228ac122337e9ab9bcd851b1b9ded7285388f91b8b157612f2f92f427d",
+   "minted_at": "2026-10-06T14:01:11+00:00",
+   "minted_by": "goggles --do mint",
+   "change": {
+    "repo": "REMEMBRANCE-API-Key-Plugger",
+    "base_tree": "957383b2d6baf8fc4710ea386ab86ab0591232b4",
+    "files": [
+     ".claude/skills/goggles/run.mjs"
+    ],
+    "diff_bytes": 2939,
+    "diff_sha256": "39192b36752ca9933431852badb2ed25e86f443152300fc7d8ac744705fc3b9d",
+    "excludes": [
+     "coins.ledger.json"
+    ]
+   },
+   "reading": {
+    "coherency": 0.17326849633691355,
+    "ratio": 2.0829199149539335,
+    "method": "void_v4_chunked",
+    "strategy": "v4_chunked",
+    "lossless": true,
+    "via": "void:compress_signal",
+    "mint": "53ac116ec00e0491",
+    "void_seal": {
+     "substrate": "void",
+     "state_id": null,
+     "data_sha256": "26fd034f43fd74753aef7493aa94129dae67c733cd38208834cfe584f55316dd",
+     "via": "void_compressor_v5.compress",
+     "at": "2026-10-06T14:01:11",
+     "coin": null,
+     "sig": "53ac116ec00e04914e2beb038f58523fc11f7e83cb5ceffa835a34a208c1088a"
+    },
+    "library_size": 63056,
+    "memory": {
+     "fits": 83,
+     "served": 83,
+     "computed": 0,
+     "served_ancestor": 0,
+     "chunkings": 7,
+     "chunkings_served": 7,
+     "entries": 1117,
+     "void_chunks": 0,
+     "ingested": 0,
+     "served_single": 0,
+     "searched": 0,
+     "void_threshold": 0.5
+    },
+    "elapsed_s": 0.014,
+    "basis_id": "946f986225f0f422",
+    "learned_n": 62984,
+    "learned_this_reading": 0,
+    "basis_after": "946f986225f0f422",
+    "read_as": "bytes",
+    "ingest": false,
+    "data": null,
+    "commitment": {
+     "canon": "void-seal/v3",
+     "basis_id": "946f986225f0f422",
+     "method": "v4_chunked",
+     "original_size": 2939,
+     "compressed_size": 1411,
+     "coherency": 0.17326849633691355,
+     "data_sha256": "08f5cf1bd47f808a2da9e279c2c96da5f6f81b3b0aec237f07a2c4fb59bad1d2",
+     "compressed_sha256": "304b241f32d22fa4c1e88dd78d072df8d9bae2addbf89204d5acbffae41a8791",
+     "shape_sha256": "255b773113902c9120c2587d3ff63fc3afa35b7f122a440d1a9cdcbd69d7b90b"
+    }
+   }
+  },
+  {
+   "v": "change-coin/v1",
+   "coin_id": "7d7dc4cd9efca0a62528040a98f142327685f8839f11dd28cb479eb617b9d90f",
+   "minted_at": "2026-10-06T14:23:09+00:00",
+   "minted_by": "goggles --do mint",
+   "change": {
+    "repo": "REMEMBRANCE-API-Key-Plugger",
+    "base_tree": "7b200880808ad430a3bcde148f1699475830ae4a",
+    "files": [
+     ".claude/skills/goggles/run.mjs"
+    ],
+    "diff_bytes": 1753,
+    "diff_sha256": "14ef8f2bc96b2074a342354bc189137e3f8269cd685df2dd1e74fcd2c6a67d26",
+    "excludes": [
+     "coins.ledger.json"
+    ]
+   },
+   "reading": {
+    "coherency": 0.18373741148464895,
+    "ratio": 1.9696629213483146,
+    "method": "void_v4_chunked",
+    "strategy": "v4_chunked",
+    "lossless": true,
+    "via": "void:compress_signal",
+    "mint": "5fcd005393cc7897",
+    "void_seal": {
+     "substrate": "void",
+     "state_id": null,
+     "data_sha256": "7f4281774b38c48ad2b0a0ec6f8c6b3d4d63c45331b7835c6c848fafccfa796d",
+     "via": "void_compressor_v5.compress",
+     "at": "2026-10-06T14:23:09",
+     "coin": null,
+     "sig": "5fcd005393cc78978dbfcaf0023a419a38349a5a72fc5a1c6c8d429bf5d7b275"
+    },
+    "library_size": 63056,
+    "memory": {
+     "fits": 48,
+     "served": 48,
+     "computed": 0,
+     "served_ancestor": 0,
+     "chunkings": 6,
+     "chunkings_served": 6,
+     "entries": 6377,
+     "void_chunks": 0,
+     "ingested": 0,
+     "served_single": 0,
+     "searched": 0,
+     "void_threshold": 0.5
+    },
+    "elapsed_s": 0.009,
+    "basis_id": "946f986225f0f422",
+    "learned_n": 62984,
+    "learned_this_reading": 0,
+    "basis_after": "946f986225f0f422",
+    "read_as": "bytes",
+    "ingest": false,
+    "data": null,
+    "commitment": {
+     "canon": "void-seal/v3",
+     "basis_id": "946f986225f0f422",
+     "method": "v4_chunked",
+     "original_size": 1753,
+     "compressed_size": 890,
+     "coherency": 0.18373741148464895,
+     "data_sha256": "3cd10ae7d0757bcb0ee9ae449e265e187d9fa789507c112aa78c6c9773bff2fc",
+     "compressed_sha256": "89b25b979598e93396ca4255de088fbb682000c49dc7ac70f05ad774bb8bb6cb",
+     "shape_sha256": "9504736d18ac4183c6ef958111c88163c06b7ca5c22f75848a21477258460629"
+    }
+   }
+  },
+  {
+   "v": "change-coin/v1",
+   "coin_id": "e03591d95112608346fc5b4b56333c375754fb8cab9be760eb250f1086c443e7",
+   "minted_at": "2026-10-06T15:01:05+00:00",
+   "minted_by": "goggles --do mint",
+   "change": {
+    "repo": "REMEMBRANCE-API-Key-Plugger",
+    "base_tree": "4ce38d8cb61610ecd47af8541b562c8371430ca4",
+    "files": [
+     ".claude/skills/goggles/run.mjs"
+    ],
+    "diff_bytes": 1672,
+    "diff_sha256": "9261ab69e4b4e300e7094e3fdc035381b6232e9dec7218f2b9aa2cf09b80b83e",
+    "excludes": [
+     "coins.ledger.json"
+    ]
+   },
+   "reading": {
+    "coherency": 0.1743686462993293,
+    "ratio": 2.1742522756827047,
+    "method": "void_v4_chunked",
+    "strategy": "v4_chunked",
+    "lossless": true,
+    "via": "void:compress_signal",
+    "mint": "ba576d44a1bfc5ab",
+    "void_seal": {
+     "substrate": "void",
+     "state_id": null,
+     "data_sha256": "45f3b131917e7604f526f5790c6870e4317a8034a7dcbbef2491797627569ad7",
+     "via": "void_compressor_v5.compress",
+     "at": "2026-10-06T15:01:05",
+     "coin": null,
+     "sig": "ba576d44a1bfc5abeb5f70c561f4aaa5c6f9479d78ebd28a417bebedf69e308b"
+    },
+    "library_size": 63056,
+    "memory": {
+     "fits": 34,
+     "served": 34,
+     "computed": 0,
+     "served_ancestor": 0,
+     "chunkings": 5,
+     "chunkings_served": 5,
+     "entries": 107314,
+     "void_chunks": 0,
+     "ingested": 0,
+     "served_single": 0,
+     "searched": 0,
+     "void_threshold": 0.5
+    },
+    "elapsed_s": 0.009,
+    "basis_id": "946f986225f0f422",
+    "learned_n": 62984,
+    "learned_this_reading": 0,
+    "basis_after": "946f986225f0f422",
+    "read_as": "bytes",
+    "ingest": false,
+    "data": null,
+    "commitment": {
+     "canon": "void-seal/v3",
+     "basis_id": "946f986225f0f422",
+     "method": "v4_chunked",
+     "original_size": 1672,
+     "compressed_size": 769,
+     "coherency": 0.1743686462993293,
+     "data_sha256": "d4f5cc4470d7639845d4b86d96d5a6504c9ddb020ad0801322ab3e8b65237680",
+     "compressed_sha256": "2e091815ed35eb74006d74c48bba8c90685fe8f2536aff75a9a20772af111cfc",
+     "shape_sha256": "d56dbb973081482d30ee84bbb60ddf6037c8f924f943a6a14e1452d44bbdbd95"
+    }
+   }
+  },
+  {
+   "v": "change-coin/v1",
    "coin_id": "524916fb8f1426276aad94ad6b927eef0fbf0b0292bebcb26414922bd052b85a",
    "minted_at": "2026-10-01T04:45:05+00:00",
    "minted_by": "goggles --do mint",
@@ -2888,6 +3098,216 @@
      "data_sha256": "c2c9561849423e83f3fb379376cdea8bb890ab639a93ae1a3cdde12c2ce31ac1",
      "compressed_sha256": "ac40ec2920bafbf3fce7ae02a027a28465b15b13027b53fae3b5065ac958d576",
      "shape_sha256": "91dd4964ab4b9077e316fcfc5b7481facce52e95fb74e9dc1166d899278e6e3f"
+    }
+   }
+  },
+  {
+   "v": "change-coin/v1",
+   "coin_id": "8f3ab3bb11764dc1beaf78de0677136a03fe7cd9fd8e109d2b78e4d3bbf9fc5e",
+   "minted_at": "2026-10-07T00:50:14+00:00",
+   "minted_by": "goggles --do mint",
+   "change": {
+    "repo": "REMEMBRANCE-API-Key-Plugger",
+    "base_tree": "e6aafc1903c14d1d2528a15d95b9d5e4b734c301",
+    "files": [
+     ".claude/skills/goggles/traps.seed.json"
+    ],
+    "diff_bytes": 3916,
+    "diff_sha256": "95ef36998272b85fae71e6e16d56017cc6c95f3714a121e2850499bcf11b2071",
+    "excludes": [
+     "coins.ledger.json"
+    ]
+   },
+   "reading": {
+    "coherency": 0.21694754705527294,
+    "ratio": 4.93198992443325,
+    "method": "void_v4_chunked",
+    "strategy": "v4_chunked",
+    "lossless": true,
+    "via": "void:compress_signal",
+    "mint": "fb9b466a8791d8cc",
+    "void_seal": {
+     "substrate": "void",
+     "state_id": null,
+     "data_sha256": "b458ad54f0cb621f47da52ca21c134a143df9c1816459db59262354329e88287",
+     "via": "void_compressor_v5.compress",
+     "at": "2026-10-07T00:50:14",
+     "coin": null,
+     "sig": "fb9b466a8791d8cc45085d4b9404b5f46c7cad3a9b921d6c10cc7991af1f8f94"
+    },
+    "library_size": 63056,
+    "memory": {
+     "fits": 96,
+     "served": 96,
+     "computed": 0,
+     "served_ancestor": 0,
+     "chunkings": 7,
+     "chunkings_served": 7,
+     "entries": 258367,
+     "void_chunks": 0,
+     "ingested": 0,
+     "served_single": 0,
+     "searched": 0,
+     "void_threshold": 0.5
+    },
+    "elapsed_s": 0.014,
+    "basis_id": "946f986225f0f422",
+    "learned_n": 62984,
+    "learned_this_reading": 0,
+    "basis_after": "946f986225f0f422",
+    "read_as": "bytes",
+    "ingest": false,
+    "data": null,
+    "commitment": {
+     "canon": "void-seal/v3",
+     "basis_id": "946f986225f0f422",
+     "method": "v4_chunked",
+     "original_size": 3916,
+     "compressed_size": 794,
+     "coherency": 0.21694754705527294,
+     "data_sha256": "6a7b7aa503f9680cfeba2be660b3ad24c041eb1034b7ee6f50cdbbf4f4807bd1",
+     "compressed_sha256": "07dbe7bc05a55eb9965dd3be4460cb1ea6b950195e48ecc8613266662ef4e2b7",
+     "shape_sha256": "f72b1b31a6c52a6eadfee4dad045bcf0e2cc51150975cb7cd79a92b9bcc2da6f"
+    }
+   }
+  },
+  {
+   "v": "change-coin/v1",
+   "coin_id": "eb2d3b4f96fb7ca2bd26b0959d74c0252fba4bf57cecfb5a4f52f1c4e39cd634",
+   "minted_at": "2026-10-10T13:03:53+00:00",
+   "minted_by": "goggles --do mint",
+   "change": {
+    "repo": "REMEMBRANCE-API-Key-Plugger",
+    "base_tree": "e5d4a48d9de2bdcd8f16dca74b0f1f19725c9c3c",
+    "files": [
+     ".github/workflows/ratchet-battery.yml"
+    ],
+    "diff_bytes": 1490,
+    "diff_sha256": "9a80c721d5b4e04eaaea72af3483181d4224035a464251d1715a12a23e24213d",
+    "excludes": [
+     "coins.ledger.json"
+    ]
+   },
+   "reading": {
+    "coherency": 0.23210124481103084,
+    "ratio": 2.1944035346097204,
+    "method": "void_v4_chunked",
+    "strategy": "v4_chunked",
+    "lossless": true,
+    "via": "void:compress_signal",
+    "mint": "2246a36fd3da0c7e",
+    "void_seal": {
+     "substrate": "void",
+     "state_id": null,
+     "data_sha256": "de478c56e33b5ac5ef1b505871d004310c5843014e4932a4fb615b1413388a7b",
+     "via": "void_compressor_v5.compress",
+     "at": "2026-10-10T13:03:53",
+     "coin": null,
+     "sig": "2246a36fd3da0c7ee6d40df8f0d0e45cb6bb92c74750be2f27e4699a41f72b62"
+    },
+    "library_size": 63056,
+    "memory": {
+     "fits": 44,
+     "served": 13,
+     "computed": 31,
+     "served_ancestor": 0,
+     "chunkings": 7,
+     "chunkings_served": 4,
+     "entries": 264319,
+     "void_chunks": 5,
+     "ingested": 0,
+     "served_single": 0,
+     "searched": 5,
+     "void_threshold": 0.5
+    },
+    "elapsed_s": 0.342,
+    "basis_id": "946f986225f0f422",
+    "learned_n": 62984,
+    "learned_this_reading": 0,
+    "basis_after": "946f986225f0f422",
+    "read_as": "bytes",
+    "ingest": false,
+    "data": null,
+    "commitment": {
+     "canon": "void-seal/v3",
+     "basis_id": "946f986225f0f422",
+     "method": "v4_chunked",
+     "original_size": 1490,
+     "compressed_size": 679,
+     "coherency": 0.23210124481103084,
+     "data_sha256": "fd571e4f4f5742a64afe83dac2141a42cbcbd2fbc7e7f212a5ead29c68bb1103",
+     "compressed_sha256": "f2a480dbe3dad5e9b4fdf3723b795ddff893b05e317494cecfadb541c5bc6712",
+     "shape_sha256": "ade006fced8e2aa591ee8ee3c46874173a9eff4d20fb96137bb142b39b846891"
+    }
+   }
+  },
+  {
+   "v": "change-coin/v1",
+   "coin_id": "69ef32047887558f58d4817576b9b70a0eea5812ac9c9186d484d7b677dfb956",
+   "minted_at": "2026-10-10T13:07:42+00:00",
+   "minted_by": "goggles --do mint",
+   "change": {
+    "repo": "REMEMBRANCE-API-Key-Plugger",
+    "base_tree": "358c947804180edafe6390ab9a832d309f56c330",
+    "files": [
+     ".remembrance/goggles-readings.json"
+    ],
+    "diff_bytes": 725,
+    "diff_sha256": "6a59b586fd105665f24ce5c9e638a7ef4076e1be30b511539ac27766f8ea75f5",
+    "excludes": [
+     "coins.ledger.json"
+    ]
+   },
+   "reading": {
+    "coherency": 0.22247311242086726,
+    "ratio": 1.9594594594594594,
+    "method": "void_v4_chunked",
+    "strategy": "v4_chunked",
+    "lossless": true,
+    "via": "void:compress_signal",
+    "mint": "98ce3782d3ecf38a",
+    "void_seal": {
+     "substrate": "void",
+     "state_id": null,
+     "data_sha256": "6840d7031842124cb1f76270ab55154420e431d61ba5539b1187f7f89d1f5651",
+     "via": "void_compressor_v5.compress",
+     "at": "2026-10-10T13:07:42",
+     "coin": null,
+     "sig": "98ce3782d3ecf38acf8577bf73e4f571e37b413b2e0246e6e42b9e937f7b690d"
+    },
+    "library_size": 63056,
+    "memory": {
+     "fits": 27,
+     "served": 7,
+     "computed": 20,
+     "served_ancestor": 0,
+     "chunkings": 7,
+     "chunkings_served": 4,
+     "entries": 264342,
+     "void_chunks": 3,
+     "ingested": 0,
+     "served_single": 0,
+     "searched": 3,
+     "void_threshold": 0.5
+    },
+    "elapsed_s": 0.192,
+    "basis_id": "946f986225f0f422",
+    "learned_n": 62984,
+    "learned_this_reading": 0,
+    "basis_after": "946f986225f0f422",
+    "read_as": "bytes",
+    "ingest": false,
+    "data": null,
+    "commitment": {
+     "canon": "void-seal/v3",
+     "basis_id": "946f986225f0f422",
+     "method": "v4_chunked",
+     "original_size": 725,
+     "compressed_size": 370,
+     "coherency": 0.22247311242086726,
+     "data_sha256": "2d45ee5d70cd51b1fa4b722b4c7c6b0ed923a82122a237b8fb325e9a56aa0064",
+     "compressed_sha256": "c1c9b171108f514d58eadcfa246b8535d4d2ab856ceb5242bca67fe3ecf7e74f",
+     "shape_sha256": "5f8327874c51efc31945d9ac5d1322904e35614d462fa0a9f804afd93fec89f9"
     }
    }
   }

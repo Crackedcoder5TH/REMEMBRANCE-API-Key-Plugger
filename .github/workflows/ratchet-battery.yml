@@ -30,17 +30,25 @@ jobs:
         with:
           path: REMEMBRANCE-API-Key-Plugger
 
+      # The sibling repos are PRIVATE, and the default GITHUB_TOKEN can only
+      # see THIS repo — the checkout dies on "Not Found" (measured 2026-10-10,
+      # PR #20). ECOSYSTEM_READ_TOKEN is a fine-grained PAT the operator adds
+      # under Settings → Secrets → Actions with read-only Contents on
+      # remembrance-oracle-toolkit and Void-Data-Compressor. Until it exists
+      # the fallback keeps today's exact behavior.
       - name: Checkout the hub (canonical battery + mirror source)
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/remembrance-oracle-toolkit
           path: remembrance-oracle-toolkit
+          token: ${{ secrets.ECOSYSTEM_READ_TOKEN || github.token }}
 
       - name: Checkout Void (the battery's sibling for contract + engine gates)
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/Void-Data-Compressor
           path: Void-Data-Compressor
+          token: ${{ secrets.ECOSYSTEM_READ_TOKEN || github.token }}
 
       - uses: actions/setup-node@v4
         with:
