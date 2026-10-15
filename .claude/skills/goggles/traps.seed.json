@@ -1746,6 +1746,25 @@
    "sources": [
     "wall"
    ]
+  },
+  {
+   "match": [
+    "wall",
+    "hook",
+    "bypass",
+    "python3"
+   ],
+   "severity": "medium",
+   "wrong": "Reaching for `python3` inside the ecosystem — OFF-SURFACE COMMAND refused (python3)",
+   "truth": "The wall refused it; the goggles are the only surface for anything done in the codebase, for any model, without exception. A repeated denial of the same rule on one host is not the wall misfiring, it is a habit the ledger must name.",
+   "tell": "The denial reads \"OFF-SURFACE COMMAND refused (python3)\"; the command began with `python3`.",
+   "correct": "Use the verb the wall names in its refusal (--do find / --do exec / --do test / --do read / --do call / --do service); if no verb reaches it, that is a missing verb to report, never a bypass.",
+   "count": 3,
+   "first": "2026-10-06T14:09:35.938Z",
+   "last": "2026-10-14T22:47:38.027Z",
+   "sources": [
+    "wall"
+   ]
   }
  ]
 }
