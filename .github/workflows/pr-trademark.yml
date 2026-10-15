@@ -26,7 +26,10 @@ jobs:
         run: |
           python3 - <<'PY'
           import os, json, re, hmac, hashlib, sys
-          key = (os.environ.get("VOID_SEAL_KEY") or "").encode()
+          # strip() mirrors the minter's key-file path: a hex key never
+          # carries whitespace, and a secret pasted with a trailing newline
+          # must read as the same key.
+          key = (os.environ.get("VOID_SEAL_KEY") or "").strip().encode()
           if not key:
               print("::warning title=pr-trademark DORMANT::VOID_SEAL_KEY not set — trademark gate dormant. Set the secret to enforce.")
               sys.exit(0)
