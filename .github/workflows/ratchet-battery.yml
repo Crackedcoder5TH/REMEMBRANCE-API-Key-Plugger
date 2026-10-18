@@ -1,15 +1,19 @@
 name: ratchet-battery
 
-# The full 16-gate battery, run on this repo's PRs and pushes. The battery
+# The full gate battery, run on this repo's PRs and pushes. The battery
 # lives in the hub (remembrance-oracle-toolkit); this workflow reproduces
-# the local sibling layout the battery expects (this repo + hub + Void),
-# then invokes it from the hub directory. C-62 (goggles-skill byte-identity
-# across every repo) is what a drift in THIS repo's mirror against the
-# hub's canonical fails on.
+# the canonical ecosystem layout under a full-depth Void checkout, takes
+# the contracts verdict fresh (the gate reads a persisted verdict only a
+# full verify_capabilities.py run writes — a runner starts with none),
+# then invokes the battery from the hub directory. The hub sits at its
+# REAL canonical path, never a symlink: node resolves modules to real
+# paths, so a symlinked hub makes C-49 read one path as two (measured
+# 2026-10-18 on Void 5f08c03). This repo's PR head IS the plugger the
+# suite judges, checked out at its canonical ecosystem path.
 #
 # Make this REQUIRED in branch protection to arm it — the operator's
 # ruling, 2026-09-20, approaching world markets: every merge in every
-# ecosystem repo confirms the 16 gates before it lands.
+# ecosystem repo confirms the gates before it lands.
 
 on:
   push:
@@ -25,37 +29,77 @@ jobs:
   ratchet-battery:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout this repo (Plugger, the PR head)
-        uses: actions/checkout@v4
-        with:
-          path: REMEMBRANCE-API-Key-Plugger
-
-      # The sibling repos are PRIVATE, and the default GITHUB_TOKEN can only
-      # see THIS repo — the checkout dies on "Not Found" (measured 2026-10-10,
-      # PR #20). ECOSYSTEM_READ_TOKEN is a fine-grained PAT the operator adds
-      # under Settings → Secrets → Actions with read-only Contents on
-      # remembrance-oracle-toolkit and Void-Data-Compressor. Until it exists
-      # the fallback keeps today's exact behavior.
-      - name: Checkout the hub (canonical battery + mirror source)
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository_owner }}/remembrance-oracle-toolkit
-          path: remembrance-oracle-toolkit
-          token: ${{ secrets.ECOSYSTEM_READ_TOKEN || github.token }}
-
-      - name: Checkout Void (the battery's sibling for contract + engine gates)
+      # Full history: C-65 resolves Void's .coin-epoch commit with git
+      # rev-list — a shallow clone reads "bad object".
+      - name: Checkout Void (the battery's host for contract + engine gates)
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/Void-Data-Compressor
           path: Void-Data-Compressor
           token: ${{ secrets.ECOSYSTEM_READ_TOKEN || github.token }}
+          fetch-depth: 0
+
+      - name: Checkout this repo (the PR head) at its canonical ecosystem path
+        uses: actions/checkout@v4
+        with:
+          path: Void-Data-Compressor/ecosystem/REMEMBRANCE-API-Key-Plugger
+
+      - name: Checkout the hub (canonical battery + mirror source)
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/remembrance-oracle-toolkit
+          path: Void-Data-Compressor/ecosystem/remembrance-oracle-toolkit
+          token: ${{ secrets.ECOSYSTEM_READ_TOKEN || github.token }}
+
+      - name: Checkout MOONS (private — C-57)
+        uses: actions/checkout@v4
+        continue-on-error: true
+        with:
+          repository: ${{ github.repository_owner }}/MOONS-OF-REMEMBRANCE
+          path: Void-Data-Compressor/ecosystem/MOONS-OF-REMEMBRANCE
+          token: ${{ secrets.ECOSYSTEM_READ_TOKEN || github.token }}
+          persist-credentials: false
+
+      - name: Checkout the chain (private — C-66 witnesses the trap ledger)
+        uses: actions/checkout@v4
+        continue-on-error: true
+        with:
+          repository: ${{ github.repository_owner }}/REMEMBRANCE-BLOCKCHAIN
+          path: Void-Data-Compressor/ecosystem/REMEMBRANCE-BLOCKCHAIN
+          token: ${{ secrets.ECOSYSTEM_READ_TOKEN || github.token }}
+          persist-credentials: false
+
+      # A FAILED checkout leaves an empty directory the contracts read as a
+      # cloned repo with everything missing. An absent repo must be absent.
+      - name: Prune failed sibling checkouts
+        working-directory: Void-Data-Compressor
+        run: |
+          for r in MOONS-OF-REMEMBRANCE REMEMBRANCE-BLOCKCHAIN; do
+            if [ -d "ecosystem/$r" ] && [ ! -e "ecosystem/$r/ECOSYSTEM.md" ]; then
+              echo "pruning empty checkout: ecosystem/$r (the token does not reach it yet)"
+              rm -rf "ecosystem/$r"
+            fi
+          done
+
+      - name: Expose Void at its canonical ecosystem path
+        run: ln -s "$GITHUB_WORKSPACE/Void-Data-Compressor" "$GITHUB_WORKSPACE/Void-Data-Compressor/ecosystem/Void-Data-Compressor"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
 
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy pytest maturin
+
       - name: Install hub deps
-        working-directory: remembrance-oracle-toolkit
+        working-directory: Void-Data-Compressor/ecosystem/remembrance-oracle-toolkit
         run: |
           if [ -f package-lock.json ]; then
             npm ci --no-audit --no-fund || npm install --no-audit --no-fund
@@ -63,10 +107,37 @@ jobs:
             npm install --no-audit --no-fund
           fi
 
+      - name: Build and install substrate-fractal
+        working-directory: Void-Data-Compressor
+        run: |
+          python -m maturin build --release --manifest-path substrate-fractal/py/Cargo.toml --out dist
+          python -m pip install dist/*.whl
+
+      - name: Seed an isolated field state for persistence contracts
+        working-directory: Void-Data-Compressor/ecosystem/remembrance-oracle-toolkit
+        run: |
+          node - <<'NODE'
+          const { contribute } = require('./src/core/field-coupling');
+          const state = contribute({ source: 'ci:ratchet-battery', coherence: 0.9, cost: 1 });
+          if (!state) throw new Error('field state was not initialized');
+          NODE
+
+      # The full suite persists the verdict the contracts gate reads
+      # (.remembrance/contracts-latest.json); its failing set is printed so
+      # a red gate names its contracts in this log.
+      - name: Take the contracts verdict (persists .remembrance/contracts-latest.json)
+        working-directory: Void-Data-Compressor
+        env:
+          VOID_SEAL_KEY: ${{ secrets.VOID_SEAL_KEY }}
+          ORACLE_TOOLKIT: ${{ github.workspace }}/Void-Data-Compressor/ecosystem/remembrance-oracle-toolkit
+        run: |
+          python3 verify_capabilities.py --json > verify_report.json || true
+          jq '{passed, total, failing}' .remembrance/contracts-latest.json
+
       - name: Build the cathedral diagnostic (the covenant ratchet reads it)
-        working-directory: remembrance-oracle-toolkit
+        working-directory: Void-Data-Compressor/ecosystem/remembrance-oracle-toolkit
         run: node scripts/cathedral-diagnostic.js
 
       - name: Run the full ratchet battery
-        working-directory: remembrance-oracle-toolkit
+        working-directory: Void-Data-Compressor/ecosystem/remembrance-oracle-toolkit
         run: node scripts/ratchet-battery.js
